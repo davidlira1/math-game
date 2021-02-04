@@ -1,0 +1,6 @@
+//THIS WOULD BE FOR WHEN IT SHRINKS. IT CAN TRANSFORM
+//AND SPIN INTO THE DISTANCE
+https://www.w3schools.com/css/tryit.asp?filename=trycss3_transition_transform
+
+//would be cool if they could spin as well :O :D
+http://css3.bradshawenterprises.com/transitions/#:~:text=%20%20%20%20Property%20Name%20%20,%20%20color%20%2046%20more%20rows
