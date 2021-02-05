@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body, #root, .app {
+    height: 100%;
+    border: 1px solid green;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 24px;
+    border: 1px solid grey;
+}
+
+.gameFrame {
+    flex-grow: 1;
+    display: flex;
+    border: 1px solid purple;
+}
+
+.gameFrame > div {
+    flex-grow: 1;
+}
+
+.middleFrame {
+    flex-basis: 16%;
+    display: flex;
+    flex-direction: column;
+    border: 4px solid rgb(59, 202, 245);
+}
+
+.question {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+}
+
+.gameBoxWrapper {
+    flex-grow: 1;
+    border: 1px solid red;
+}
+
+.gameBox {
+    position: relative;
+    border: 2px solid pink;
+    padding-top: 100%;
+}
+
+.bubbleWrapper {
+    width: 50vh;
+    position: absolute;
+    border-radius: 50%;
+    background: #5bb2f0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: .3s linear;
+    cursor: pointer;
+}
+
+.bubble {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100%;
+}
+
+.bubbleValue {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+}
+
+/* ------------------------------- */
+.showLevel, .showPoints {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 50px;
+    color: #5bb2f0;
+}
+
+
+/* ------------------------------- */
+/* KEYFRAMES-----------------------*/
+/* ------------------------------- */
+@keyframes flyAway {
+    0%{
+        
+    }
+    100% {
+        width: 1%;
+        height: 1%;
+    }
+}
