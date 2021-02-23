@@ -1,0 +1,20 @@
+.chooseSubject {
+    margin: 0 auto;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.subjectBox {
+    /* flex-basis: 50%; */
+    width: 25%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid grey;
+    cursor: pointer;
+}
