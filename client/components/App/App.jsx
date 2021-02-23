@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Header/Header.jsx';
 import GameFrame from '../GameFrame/GameFrame.jsx';
+import Footer from '../Footer/Footer.jsx';
 import styles from '../../styles.css';
 
 var App = () => {
@@ -8,6 +9,7 @@ var App = () => {
         <div class="app">
             {/* <Header/> */}
             <GameFrame/>
+            <Footer/>
         </div>
     )
 }

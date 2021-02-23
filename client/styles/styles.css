@@ -6,7 +6,7 @@
 
 html, body, #root, .app {
     height: 100%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
 }
 
 body {
@@ -26,7 +26,7 @@ header {
 .gameFrame {
     flex-grow: 1;
     display: flex;
-    border: 1px solid purple;
+    /* border: 1px solid purple; */
 }
 
 .gameFrame > div {
@@ -37,36 +37,48 @@ header {
     flex-basis: 16%;
     display: flex;
     flex-direction: column;
-    border: 4px solid rgb(59, 202, 245);
+    /* border: 4px solid rgb(59, 202, 245); */
 }
 
 .question {
-    padding: 10px;
+    padding: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 32px;
+    font-size: 44px;
+    font-family: 'Luckiest Guy', cursive;
+    color: #5bb2f0;
+
 }
 
 .gameBoxWrapper {
     flex-grow: 1;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .gameBox {
     position: relative;
-    border: 2px solid pink;
+    border: 8px solid #5bb2f0;
+    border-radius: 10px;
     padding-top: 100%;
 }
 
 .bubbleWrapper {
-    width: 50vh;
     position: absolute;
     border-radius: 50%;
     background: #5bb2f0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transition: .3s linear;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+    transition: .2s linear;
     cursor: pointer;
+}
+
+.pointsEarned {
+    visibility: hidden;
+    font-family: 'Luckiest Guy', cursive;
+    position: absolute;
+    top: 10%;
+    left: 90%;
+    /* animation: showPointsEarned 2s ease alternate; */
 }
 
 .bubble {
@@ -86,7 +98,20 @@ header {
     height: 100%;
     width: 100%;
     color: white;
-    font-size: 20px;
+    font-size: 32px;
+    font-family: 'Luckiest Guy', cursive;
+
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    color: #5bb2f0;
+    font-family: 'Luckiest Guy', cursive;
+
+
 }
 
 /* ------------------------------- */
@@ -104,12 +129,25 @@ header {
 /* ------------------------------- */
 /* KEYFRAMES-----------------------*/
 /* ------------------------------- */
-@keyframes flyAway {
-    0%{
-        
+.vanish {
+    width: 1%;
+    height: 1%;
+    background: red;
+    opacity: 0%;
+}
+
+@keyframes showPointsEarned  {
+    0% {
+        visibility: visible;
+        width: 10%;
+        height: 10%;        
     }
-    100% {
-        width: 1%;
-        height: 1%;
+
+    50% {
+        visibility: visible;
+        width: 30%;
+        height: 40%;
     }
 }
+
+/* alternate */

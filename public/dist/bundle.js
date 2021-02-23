@@ -10,50 +10,62 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "roundNumToNearest": () => (/* binding */ roundNumToNearest),
-/* harmony export */   "movement": () => (/* binding */ movement)
+/* harmony export */   "roundNumToNearestMultiple": () => (/* binding */ roundNumToNearestMultiple),
+/* harmony export */   "movement": () => (/* binding */ movement),
+/* harmony export */   "pixToNum": () => (/* binding */ pixToNum)
 /* harmony export */ });
-var roundNumToNearest = (num, roundTo) => {
-    var remainder = num % roundTo;
-    if(remainder < (roundTo / 2)) {
+var roundNumToNearestMultiple = (num, multiple) => {
+    var remainder = num % multiple;
+    if(remainder < (multiple / 2)) {
         return num - remainder;
     } else {
-        return num - remainder + roundTo;
+        return num - remainder + multiple;
     }
+}
+
+var pixToNum = (str) => {
+    return Number(str.substring(0, str.length - 2));
 }
 
 var percentToNum = (str) => {
     return Number(str.substring(0, str.length - 1));
 }
 
-var movement = (bubble) => {
-    var slopes = [{x:-5, y:2.5}, {x:-2.5, y:5}, {x:2.5, y:5}, {x:5, y:2.5}, {x:5, y:-2.5}, {x:2.5, y:-5}, {x:-2.5, y:-5}, {x:-5, y: -2.5}];
-
+var movement = (element) => {
+    var containerStyle = getComputedStyle(element.parentNode);
+    console.log('containerStyle', containerStyle.width);
+    var slopes = [{x:-4, y:2}, {x:-2, y:4}, {x:2, y:4}, {x:4, y:2}, {x:4, y:-2}, {x:2, y:-4}, {x:-2, y:-4}, {x:-4, y: -2}];
     var slope = slopes[Math.floor(Math.random() * slopes.length)];
 
     var interval = setInterval(() => {
-        
-        //if hits left edge
-        if(bubble.style.left === '0%') {
+        console.log("element.style.left", element.style.left, "element.style.top", element.style.top);
+
+        //IF HITS LEFT EDGE
+        if(percentToNum(element.style.left) === 0) {
             //reverse slope
             slope.x = -slope.x;
-        
-        //if hits top edge
-        } else if(bubble.style.top === '0%') {
+        } 
+
+        //IF HITS TOP EDGE
+        if(percentToNum(element.style.top) === 0) {
             slope.y = -slope.y;
+        } 
 
-        //if hits right edge
-        } else if(bubble.style.left === 100 - percentToNum(bubble.style.width) + '%') {
+        //IF HITS RIGHT EDGE
+        if(percentToNum(element.style.left) === 100 - percentToNum(element.style.width)) {
             slope.x = -slope.x;
+        }
 
-        //if hits bottom edge
-        } else if(bubble.style.top === 100 - percentToNum(bubble.style.height) + '%') {
+        //IF HITS BOTTOM EDGE
+        if(percentToNum(element.style.top) === 100 - percentToNum(element.style.height)) {
             slope.y = -slope.y;
         }
 
-        bubble.style.left = percentToNum(bubble.style.left) + slope.x + '%';
-        bubble.style.top = percentToNum(bubble.style.top) - slope.y + '%';
-    }, 300);
+        element.style.left = ((((percentToNum(element.style.left)/100)*pixToNum(containerStyle.width)) + ((slope.x/100)*pixToNum(containerStyle.width)))/ pixToNum(containerStyle.width)) * 100 + '%';
+
+        element.style.top = ((((percentToNum(element.style.top)/100)*pixToNum(containerStyle.height)) + ((slope.y/100)*pixToNum(containerStyle.height)))/ pixToNum(containerStyle.height)) * 100 + '%';
+
+    }, 200);
 
     return interval;
 }
@@ -122,7 +134,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Header_Header_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Header/Header.jsx */ "./client/components/Header/Header.jsx");
 /* harmony import */ var _GameFrame_GameFrame_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GameFrame/GameFrame.jsx */ "./client/components/GameFrame/GameFrame.jsx");
-/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styles.css */ "./client/styles.css");
+/* harmony import */ var _Footer_Footer_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Footer/Footer.jsx */ "./client/components/Footer/Footer.jsx");
+/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../styles.css */ "./client/styles.css");
+
 
 
 
@@ -131,10 +145,33 @@ __webpack_require__.r(__webpack_exports__);
 var App = function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     "class": "app"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_GameFrame_GameFrame_jsx__WEBPACK_IMPORTED_MODULE_2__.default, null));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_GameFrame_GameFrame_jsx__WEBPACK_IMPORTED_MODULE_2__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Footer_Footer_jsx__WEBPACK_IMPORTED_MODULE_3__.default, null));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./client/components/Footer/Footer.jsx":
+/*!*********************************************!*\
+  !*** ./client/components/Footer/Footer.jsx ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var Footer = function Footer() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "footer"
+  }, "David Lira");
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
 
 /***/ }),
 
@@ -158,38 +195,51 @@ var interval;
 var Bubble = function Bubble(_ref) {
   var idx = _ref.idx,
       value = _ref.value,
+      potentialPoints = _ref.potentialPoints,
       handleBubbleClick = _ref.handleBubbleClick;
-  //var [interval, changeInterval] = useState(null);
-  var style = {
-    left: (0,_movement_js__WEBPACK_IMPORTED_MODULE_1__.roundNumToNearest)(Math.random() * 75 + 2.5, 5) + '%',
-    top: (0,_movement_js__WEBPACK_IMPORTED_MODULE_1__.roundNumToNearest)(Math.random() * 75 + 2.5, 5) + '%',
-    width: '20%',
-    height: '20%'
-  };
+
+  if (potentialPoints === 10) {
+    var style = {
+      left: (0,_movement_js__WEBPACK_IMPORTED_MODULE_1__.roundNumToNearestMultiple)(Math.random() * 75 + 2.5, 4) + '%',
+      top: (0,_movement_js__WEBPACK_IMPORTED_MODULE_1__.roundNumToNearestMultiple)(Math.random() * 75 + 2.5, 4) + '%',
+      width: '20%',
+      height: '20%'
+    };
+  }
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (intervals.length === 4) {
+    if (intervals.length === 4 && potentialPoints === 10) {
+      console.log('about to clear intervals');
       intervals.forEach(function (interval) {
         clearInterval(interval);
       });
       intervals = [];
     }
 
-    var bubble = document.querySelector(".bubbleWrapper[idx=\"".concat(idx, "\"]"));
-    interval = (0,_movement_js__WEBPACK_IMPORTED_MODULE_1__.movement)(bubble);
-    intervals.push(interval);
-  });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    style: style,
-    className: "bubbleWrapper",
-    idx: idx,
-    onClick: function onClick() {
-      return handleBubbleClick(idx, value);
+    console.log('potentialPoints', potentialPoints);
+
+    if (potentialPoints === 10) {
+      var bubble = document.querySelector(".bubbleWrapper[idx=\"".concat(idx, "\"]"));
+      interval = (0,_movement_js__WEBPACK_IMPORTED_MODULE_1__.movement)(bubble);
+      intervals.push(interval);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "bubble"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "bubbleValue"
-  }, value));
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      style: style,
+      className: "bubbleWrapper",
+      idx: idx,
+      onClick: function onClick() {
+        return handleBubbleClick(idx, value);
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "pointsEarned"
+    }, potentialPoints), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "bubble"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "bubbleValue"
+    }, value));
+  }, [value]);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Bubble);
@@ -213,6 +263,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var GameBox = function GameBox(_ref) {
   var possibleAnswers = _ref.possibleAnswers,
+      potentialPoints = _ref.potentialPoints,
       handleBubbleClick = _ref.handleBubbleClick;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "gameBoxWrapper"
@@ -220,8 +271,9 @@ var GameBox = function GameBox(_ref) {
     className: "gameBox"
   }, possibleAnswers.map(function (possibleAnswer, idx) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Bubble_jsx__WEBPACK_IMPORTED_MODULE_1__.default, {
-      value: possibleAnswer,
       idx: idx,
+      value: possibleAnswer,
+      potentialPoints: potentialPoints,
       handleBubbleClick: handleBubbleClick
     });
   })));
@@ -290,6 +342,11 @@ var GameFrame = function GameFrame() {
       totalPoints = _useState8[0],
       changeTotalPoints = _useState8[1];
 
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(10),
+      _useState10 = _slicedToArray(_useState9, 2),
+      potentialPoints = _useState10[0],
+      changePotentialPoints = _useState10[1];
+
   var handleBubbleClick = function handleBubbleClick(idx, value) {
     //if right answer
     console.log('comes thru');
@@ -299,24 +356,29 @@ var GameFrame = function GameFrame() {
       changeTotalPoints(totalPoints + potentialPoints);
       changeQuestionNum(questionNum + 1);
       changeQuestion((0,_questionGenerator_js__WEBPACK_IMPORTED_MODULE_6__.default)(level));
-      potentialPoints = 10; //show the animation of the points on the bubble
+      document.querySelectorAll('.bubbleWrapper').forEach(function (bubble) {
+        bubble.classList.remove('vanish');
+      });
+      potentialPoints = 10;
+      changePotentialPoints(10); //show the animation of the points on the bubble
     } else {
-      potentialPoints -= 2; //if last try, potential points = 0
+      potentialPoints -= 2;
+      changePotentialPoints(--potentialPoints); //if last try, potential points = 0
       //make bubble fly away
 
       console.log('idx', idx);
-      document.querySelector(".bubbleWrapper[idx=\"".concat(idx, "\"]")).style.animation = 'flyAway 2s ease normal';
+      document.querySelector(".bubbleWrapper[idx=\"".concat(idx, "\"]")).classList.add('vanish');
     }
   };
 
-  console.log('RENDER');
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     "class": "gameFrame"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ShowLevel_jsx__WEBPACK_IMPORTED_MODULE_2__.default, {
     level: level
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MiddleFrame_jsx__WEBPACK_IMPORTED_MODULE_3__.default, {
     question: question,
-    handleBubbleClick: handleBubbleClick
+    handleBubbleClick: handleBubbleClick,
+    potentialPoints: potentialPoints
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ShowPoints_jsx__WEBPACK_IMPORTED_MODULE_4__.default, {
     totalPoints: totalPoints
   }));
@@ -345,6 +407,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var MiddleFrame = function MiddleFrame(_ref) {
   var question = _ref.question,
+      potentialPoints = _ref.potentialPoints,
       handleBubbleClick = _ref.handleBubbleClick;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     "class": "middleFrame"
@@ -353,6 +416,7 @@ var MiddleFrame = function MiddleFrame(_ref) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_GameBox_jsx__WEBPACK_IMPORTED_MODULE_2__.default, {
     answer: question.answer,
     possibleAnswers: question.possibleAnswers,
+    potentialPoints: potentialPoints,
     handleBubbleClick: handleBubbleClick
   }));
 };
@@ -487,7 +551,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n    box-sizing: border-box;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\nhtml, body, #root, .app {\r\n    height: 100%;\r\n    border: 1px solid green;\r\n}\r\n\r\nbody {\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n\r\n.app {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\nheader {\r\n    padding: 24px;\r\n    border: 1px solid grey;\r\n}\r\n\r\n.gameFrame {\r\n    flex-grow: 1;\r\n    display: flex;\r\n    border: 1px solid purple;\r\n}\r\n\r\n.gameFrame > div {\r\n    flex-grow: 1;\r\n}\r\n\r\n.middleFrame {\r\n    flex-basis: 16%;\r\n    display: flex;\r\n    flex-direction: column;\r\n    border: 4px solid rgb(59, 202, 245);\r\n}\r\n\r\n.question {\r\n    padding: 10px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 32px;\r\n}\r\n\r\n.gameBoxWrapper {\r\n    flex-grow: 1;\r\n    border: 1px solid red;\r\n}\r\n\r\n.gameBox {\r\n    position: relative;\r\n    border: 2px solid pink;\r\n    padding-top: 100%;\r\n}\r\n\r\n.bubbleWrapper {\r\n    width: 50vh;\r\n    position: absolute;\r\n    border-radius: 50%;\r\n    background: #5bb2f0;\r\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\r\n    transition: .3s linear;\r\n    cursor: pointer;\r\n}\r\n\r\n.bubble {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    padding-top: 100%;\r\n}\r\n\r\n.bubbleValue {\r\n    position: absolute;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    top: 0;\r\n    left: 0;\r\n    height: 100%;\r\n    width: 100%;\r\n    color: white;\r\n    font-size: 20px;\r\n}\r\n\r\n/* ------------------------------- */\r\n.showLevel, .showPoints {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Luckiest Guy', cursive;\r\n    font-size: 50px;\r\n    color: #5bb2f0;\r\n}\r\n\r\n\r\n/* ------------------------------- */\r\n/* KEYFRAMES-----------------------*/\r\n/* ------------------------------- */\r\n@keyframes flyAway {\r\n    0%{\r\n        \r\n    }\r\n    100% {\r\n        width: 1%;\r\n        height: 1%;\r\n    }\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n    box-sizing: border-box;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\nhtml, body, #root, .app {\r\n    height: 100%;\r\n    /* border: 1px solid green; */\r\n}\r\n\r\nbody {\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n\r\n.app {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\nheader {\r\n    padding: 24px;\r\n    border: 1px solid grey;\r\n}\r\n\r\n.gameFrame {\r\n    flex-grow: 1;\r\n    display: flex;\r\n    /* border: 1px solid purple; */\r\n}\r\n\r\n.gameFrame > div {\r\n    flex-grow: 1;\r\n}\r\n\r\n.middleFrame {\r\n    flex-basis: 16%;\r\n    display: flex;\r\n    flex-direction: column;\r\n    /* border: 4px solid rgb(59, 202, 245); */\r\n}\r\n\r\n.question {\r\n    padding: 28px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 44px;\r\n    font-family: 'Luckiest Guy', cursive;\r\n    color: #5bb2f0;\r\n\r\n}\r\n\r\n.gameBoxWrapper {\r\n    flex-grow: 1;\r\n    /* border: 1px solid red; */\r\n}\r\n\r\n.gameBox {\r\n    position: relative;\r\n    border: 8px solid #5bb2f0;\r\n    border-radius: 10px;\r\n    padding-top: 100%;\r\n}\r\n\r\n.bubbleWrapper {\r\n    position: absolute;\r\n    border-radius: 50%;\r\n    background: #5bb2f0;\r\n    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);\r\n    transition: .2s linear;\r\n    cursor: pointer;\r\n}\r\n\r\n.pointsEarned {\r\n    visibility: hidden;\r\n    font-family: 'Luckiest Guy', cursive;\r\n    position: absolute;\r\n    top: 10%;\r\n    left: 90%;\r\n    /* animation: showPointsEarned 2s ease alternate; */\r\n}\r\n\r\n.bubble {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    padding-top: 100%;\r\n}\r\n\r\n.bubbleValue {\r\n    position: absolute;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    top: 0;\r\n    left: 0;\r\n    height: 100%;\r\n    width: 100%;\r\n    color: white;\r\n    font-size: 32px;\r\n    font-family: 'Luckiest Guy', cursive;\r\n\r\n}\r\n\r\n.footer {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 36px;\r\n    color: #5bb2f0;\r\n    font-family: 'Luckiest Guy', cursive;\r\n\r\n\r\n}\r\n\r\n/* ------------------------------- */\r\n.showLevel, .showPoints {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Luckiest Guy', cursive;\r\n    font-size: 50px;\r\n    color: #5bb2f0;\r\n}\r\n\r\n\r\n/* ------------------------------- */\r\n/* KEYFRAMES-----------------------*/\r\n/* ------------------------------- */\r\n.vanish {\r\n    width: 1%;\r\n    height: 1%;\r\n    background: red;\r\n    opacity: 0%;\r\n}\r\n\r\n@keyframes showPointsEarned  {\r\n    0% {\r\n        visibility: visible;\r\n        width: 10%;\r\n        height: 10%;        \r\n    }\r\n\r\n    50% {\r\n        visibility: visible;\r\n        width: 30%;\r\n        height: 40%;\r\n    }\r\n}\r\n\r\n/* alternate */", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

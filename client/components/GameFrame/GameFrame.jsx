@@ -12,6 +12,7 @@ var GameFrame = () => {
     var [question, changeQuestion] = useState(questionGenerator(level));
     var [questionNum, changeQuestionNum] = useState(1);
     var [totalPoints, changeTotalPoints] = useState(0);
+    var [potentialPoints, changePotentialPoints] = useState(10);
 
     var handleBubbleClick = (idx, value) => {
         //if right answer
@@ -21,21 +22,29 @@ var GameFrame = () => {
             changeTotalPoints(totalPoints + potentialPoints);
             changeQuestionNum(questionNum + 1);
             changeQuestion(questionGenerator(level));
+            document.querySelectorAll('.bubbleWrapper').forEach(bubble => {
+                bubble.classList.remove('vanish');
+            })
+            
             potentialPoints = 10;
+            changePotentialPoints(10);
             //show the animation of the points on the bubble
         } else {
             potentialPoints-= 2;
+            changePotentialPoints(--potentialPoints);
             //if last try, potential points = 0
             //make bubble fly away
             console.log('idx', idx);
-            document.querySelector(`.bubbleWrapper[idx="${idx}"]`).style.animation = 'flyAway 2s ease normal';
+            document.querySelector(`.bubbleWrapper[idx="${idx}"]`).classList.add('vanish');
         }
     }
-    console.log('RENDER')
+ 
     return (
         <div class="gameFrame">
             <ShowLevel level={level}/>
-            <MiddleFrame question={question} handleBubbleClick={handleBubbleClick}/>
+            <MiddleFrame question={question} 
+                         handleBubbleClick={handleBubbleClick}
+                         potentialPoints={potentialPoints}/>
             <ShowPoints totalPoints={totalPoints}/>
         </div>
     )
