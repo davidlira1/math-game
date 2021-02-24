@@ -2,7 +2,12 @@ import React from 'react';
 
 var SubjectBox = ( {subject} ) => {
     
-    return <div className="subjectBox">{subject}</div>
+    return (
+
+        <div className="subjectBox">
+            {subject}
+        </div>
+    )
 }
 
 export default SubjectBox;

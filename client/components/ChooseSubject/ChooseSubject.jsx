@@ -7,9 +7,11 @@ var ChooseSubject = () => {
     
     return (
         <div className="chooseSubject">
-            {subjects.map(subject => {
-                return <SubjectBox subject={subject}/>
-            })}
+            <div className="subjectBoxContainer">
+                {subjects.map(subject => {
+                    return <SubjectBox subject={subject}/>
+                })}
+            </div>
         </div>
     )
 }

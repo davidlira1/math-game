@@ -1,20 +1,30 @@
 .chooseSubject {
     margin: 0 auto;
     height: 100%;
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid green;
+}
 
+.subjectBoxContainer {
+    width: 80%;
+    height: 50%;
+    /* border: 1px solid pink; */
+    display: flex;
 }
 
 .subjectBox {
-    /* flex-basis: 50%; */
-    width: 25%;
-    height: 25%;
+    border-radius: 26px;
+    flex-basis: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid grey;
     cursor: pointer;
+    font-size: 104px;
+    margin: 10px;
+    background-color: #5bb2f0;
+    color: white;
 }
